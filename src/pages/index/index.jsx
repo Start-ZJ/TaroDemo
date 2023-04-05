@@ -14,7 +14,7 @@ const userFooterAry = [{
   }
 }, {
   content: '我的',
-  value: '1',
+  value: '2',
   Icon: <AtIcon value='home' />
 }];
 const adminFooterAry = [{
