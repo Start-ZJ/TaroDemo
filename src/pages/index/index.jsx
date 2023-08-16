@@ -1,5 +1,5 @@
 import { Component } from 'react'
-import { View, Text } from '@tarojs/components'
+import { View, Text, Image } from '@tarojs/components'
 import { AtIcon } from 'taro-ui'
 import Taro from '@tarojs/taro'
 import './index.scss'
@@ -65,7 +65,9 @@ export default class Index extends Component {
     return (
       <View className='index'>
         <View className='homeBox'>
-          <View className='homeCentent'>装修小程序</View>
+          <View className='homeBody'>
+            <Image className='homeBodyPng' src={require('./images/background.png.jpg')} />
+          </View>
           <View className='homeFooter'>
             {footerAry.map(item => this.renderFooterDOM(item))}
           </View>
