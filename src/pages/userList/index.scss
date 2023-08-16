@@ -1,7 +1,9 @@
 .userList {
   position: relative;
   width: 100%;
-  height: 100%;
+  height: calc(100% - 100rpx);
+  overflow-y: auto;
+  overflow-x: hidden;
   background-color: #FFF;
 
   .homeBox {
@@ -21,13 +23,15 @@
     left: 0;
     background-color: rgba($color: #000000, $alpha: .6);
     z-index: 9999;
-    .timeModal-box{
+
+    .timeModal-box {
       width: 100%;
       height: auto;
       background-color: #FFF;
     }
   }
-  .listTitleLine{
+
+  .listTitleLine {
     padding: 24rpx 24rpx;
     position: relative;
     -webkit-box-sizing: border-box;
@@ -40,4 +44,31 @@
     transition: background-color 0.3s;
     position: relative;
   }
+
+  .renderButtonDom {
+    position: fixed;
+    width: 100%;
+    height: 100rpx;
+    bottom: 0;
+    left: 0;
+    padding: 10rpx 32rpx;
+    background: #FFFFFF;
+    box-shadow: 0rpx -2rpx 8rpx 0rpx rgba(0, 0, 0, 0.08);
+
+    .renderButtonDomButton {
+      width: calc(100% - 64rpx);
+      height: 80rpx;
+      background: #00B87A;
+      border-radius: 8rpx;
+      text-align: center;
+      font-size: 30rpx;
+      font-family: PingFangSC-Semibold, PingFang SC;
+      font-weight: 600;
+      color: #FFF;
+      line-height: 80rpx;
+    }
+  }
+}
+.at-list__item-extra{
+  max-width: 100%;
 }

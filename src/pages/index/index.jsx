@@ -9,13 +9,18 @@ const userFooterAry = [{
   Icon: <AtIcon value='bookmark' />,
   fun: () => {
     Taro.redirectTo({
-      url: '/pages/userList/userList',
+      url: '/pages/userList/userList'
     })
   }
 }, {
   content: '我的',
   value: '2',
-  Icon: <AtIcon value='home' />
+  Icon: <AtIcon value='home' />,
+  fun: () => {
+    Taro.redirectTo({
+      url: '/pages/personalParticulars/personalParticulars'
+    })
+  }
 }];
 const adminFooterAry = [{
   content: '单据汇总',
