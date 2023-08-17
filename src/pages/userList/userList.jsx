@@ -1,13 +1,14 @@
 import { Component } from 'react'
-import { View, Picker } from '@tarojs/components'
+import Taro from '@tarojs/taro';
+import { View } from '@tarojs/components'
 import { DateTimePicker } from './../../components/index';
-import { AtIcon, AtInput, AtCalendar, AtList, AtListItem, AtTextarea } from 'taro-ui'
+import { AtInput, AtList, AtListItem, AtTextarea } from 'taro-ui'
 import './index.scss';
-import axios from 'axios';
 import moment from 'moment';
+import axios from 'axios';
 const ListTitleLine = (props) => {
-  const { label } = props;
-  return (<View className='listTitleLine'>{label}</View>)
+  const { label, isMust = false } = props;
+  return (<View className='listTitleLine'>{isMust && <View className='mustTip'>*</View>}{label}</View>)
 }
 export default class Index extends Component {
   constructor(props) {
@@ -27,23 +28,24 @@ export default class Index extends Component {
   workOrderSaving = () => {
     const { personName, currentDate, where, content, memo } = this.state;
     if (personName?.length == '') {
-      message.info('请输入人员姓名！');
+      Taro.showToast({ title: '请输入发布人姓名', icon: 'none' });
       return
     }
     if (!currentDate) {
-      message.info('请选择预定时间！');
+      Taro.showToast({ title: '请选择预定时间', icon: 'none' });
       return
     }
     if (where?.length == '') {
-      message.info('请输入地点！');
+      Taro.showToast({ title: '请输入地点', icon: 'none' });
       return
     }
     if (content?.length == '') {
-      message.info('请输入具体工作内容！');
+      Taro.showToast({ title: '请输入具体工作内容', icon: 'none' });
       return
     }
     let params = { personName, currentDate, where, content, memo };
     console.log('Index  params---->', params)
+    // axios.post('').then().catch()
   }
   /** @description 表单元素  */
   renderBodyDom = () => {
@@ -54,6 +56,7 @@ export default class Index extends Component {
         name='value'
         title='发布人姓名'
         type='text'
+        required={true}
         placeholder='请输入发布人姓名'
         value={personName}
         onChange={(value) => { this.setState({ personName: value }); }}
@@ -62,20 +65,23 @@ export default class Index extends Component {
         <AtListItem
           title='预定时间'
           arrow='right'
+          required={true}
           extraText={currentDate ? currentDate : '点击选择时间'}
           onClick={() => { this.setState({ currentDate: undefined }, () => { this.refTime.openModal() }) }}
         />
       </AtList>
-      <ListTitleLine label='地点' />
+      <ListTitleLine isMust={true} label='地点' required={true} />
       <AtTextarea
         placeholder='请输入地点'
         value={where}
+        required={true}
         onChange={(value) => { this.setState({ where: value }); }}
       />
-      <ListTitleLine label='具体工作内容' />
+      <ListTitleLine isMust={true} label='具体工作内容' />
       <AtTextarea
         placeholder='请输入工作内容'
         value={content}
+        required={true}
         onChange={(value) => { this.setState({ content: value }); }}
       />
       <ListTitleLine label='备注信息' />
@@ -89,7 +95,7 @@ export default class Index extends Component {
   /** @description 提交按钮  */
   renderButtonDom = () => {
     return (<View className='renderButtonDom'>
-      <View className='renderButtonDomButton' onClick={(() => { })}>提交</View>
+      <View className='renderButtonDomButton' onClick={(() => { this.workOrderSaving() })}>提交</View>
     </View >)
   }
   render() {
@@ -99,7 +105,7 @@ export default class Index extends Component {
         {this.renderButtonDom()}
         <DateTimePicker
           ref={e => this.refTime = e}
-          onOk={({ current }) => {  this.setState({ currentDate: current }) }}
+          onOk={({ current }) => { this.setState({ currentDate: current }) }}
           initValue={moment(new Date, 'YYYY-MM-DD hh:mm')}
           wrap-class="my-class"
           select-item-class="mySelector"

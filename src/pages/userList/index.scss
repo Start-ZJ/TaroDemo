@@ -32,8 +32,9 @@
   }
 
   .listTitleLine {
-    padding: 24rpx 24rpx;
     position: relative;
+    display: flex;
+    padding: 24rpx 24rpx;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     color: #333;
@@ -42,7 +43,11 @@
     -webkit-transition: background-color 0.3s;
     -o-transition: background-color 0.3s;
     transition: background-color 0.3s;
-    position: relative;
+
+    .mustTip {
+      color: #f56c6c;
+      margin-right: 4px;
+    }
   }
 
   .renderButtonDom {
@@ -69,6 +74,17 @@
     }
   }
 }
-.at-list__item-extra{
+
+.at-input__title {
+  width: 200rpx;
+}
+
+.at-list__item-extra {
   max-width: 100%;
+}
+
+.item-content__info-title:before {
+  content: "*";
+  color: #f56c6c;
+  margin-right: 4px;
 }

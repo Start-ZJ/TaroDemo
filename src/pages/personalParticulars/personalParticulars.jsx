@@ -2,43 +2,46 @@ import { Component } from 'react'
 import { View, Image } from '@tarojs/components'
 import { AtList, AtListItem } from 'taro-ui'
 import './index.scss';
-const ListTitleLine = (props) => {
-  const { label } = props;
-  return (<View className='listTitleLine'>{label}</View>)
-}
+const UserInfoList = [{
+  label: '未开始',
+  value: 10
+}, {
+  label: '进行中',
+  value: 10
+}, {
+  label: '已结束',
+  value: 10
+}]
 export default class PersonalParticulars extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      userName: '坐看海潮听水',
+      mobile: 13325715337,
+      userPng: ''
     }
   }
   componentWillMount() {
   }
   renderUserInfoDom = () => {
+    const { mobile, userName, userPng } = this.state;
     return (<View className='renderUserInfoDom'>
-      <Image className='renderUserInfoDomUserInfoPng' src={require('./images/userInfo.png')} />
+      <Image className='renderUserInfoDomUserInfo-Png' src={require('./images/userInfo.png')} />
       <View className='renderUserInfoDom-User'>
         <View className='renderUserInfoDom-User-Text'>
-          <View className='renderUserInfoDom-User-Text-Name'></View>
-          <View className='renderUserInfoDom-User-Text-Mobile'></View>
+          <View className='renderUserInfoDom-User-Text-Name'>{userName}</View>
+          <View className='renderUserInfoDom-User-Text-Mobile'>{`手机号码：${mobile}`}</View>
         </View>
-        <View className='renderUserInfoDom-User-Png'>
-          <Image className='renderUserInfoDomUserInfoPng-User' src={'ss'} />
+        <View className={userPng?.length === 0 ? 'renderUserInfoDom-User-UserTwo' : 'renderUserInfoDom-User-UserOne'}>
+          {userPng?.length === 0 ? <View className='renderUserInfoDom-User-text'>{userName.substring(userName?.length - 2, userName?.length)}</View> : <Image className='renderUserInfoDomUserInfoPng-User' src={userPng} />}
         </View>
       </View>
       <View className='renderUserInfoDom-BillInfo'>
-        <View className='renderUserInfoDom-BillInfo-Item'>
-          <View className='renderUserInfoDom-BillInfo-Label'>未开始</View>
-          <View className='renderUserInfoDom-BillInfo-Num'>10</View>
-        </View>
-        <View className='renderUserInfoDom-BillInfo-Item'>
-          <View className='renderUserInfoDom-BillInfo-Label'>进行中</View>
-          <View className='renderUserInfoDom-BillInfo-Num'>10</View>
-        </View>
-        <View className='renderUserInfoDom-BillInfo-Item'>
-          <View className='renderUserInfoDom-BillInfo-Label'>已结束</View>
-          <View className='renderUserInfoDom-BillInfo-Num'>10</View>
-        </View>
+        {UserInfoList.map((item, index) => (
+          <View className='renderUserInfoDom-BillInfo-Item' key={index}>
+            <View className='renderUserInfoDom-BillInfo-Label'>{item.label}</View>
+            <View className='renderUserInfoDom-BillInfo-Num'>{item.value}</View>
+          </View>))}
       </View>
     </View>)
   }
